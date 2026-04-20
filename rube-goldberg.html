@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotic Rube Goldberg Machine | Thomas Norpel</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .code-block {
+            background: #1e2a38;
+            color: #a8d8a8;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            line-height: 1.7;
+            overflow-x: auto;
+        }
+
+        .code-block .comment {
+            color: #7a9fbf;
+        }
+
+        .code-block .keyword {
+            color: #c792ea;
+        }
+
+        .code-block .value {
+            color: #f78c6c;
+        }
+
+        .stage-diagram {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+
+        .stage-box {
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #2c3e50;
+            text-align: center;
+            min-width: 110px;
+        }
+
+        .stage-arrow {
+            color: #3498db;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .spec-card {
+            background: white;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+        }
+
+        .spec-card .spec-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #888;
+            margin-bottom: 0.25rem;
+        }
+
+        .spec-card .spec-value {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+
+        .note-callout {
+            background: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 600px) {
+            .spec-grid { grid-template-columns: 1fr; }
+            .stage-diagram { flex-direction: column; align-items: flex-start; }
+            .stage-arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">Thomas Norpel</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Me</a>
+            <a href="projects.html">Projects</a>
+            <a href="resume.html">Resume</a>
+            <a href="https://linkedin.com/in/thomas-norpel" target="_blank" class="nav-icon" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451c.979 0 1.771-.773 1.771-1.729V1.729C24 .774 23.204 0 22.225 0z"/>
+                </svg>
+            </a>
+            <a href="https://github.com/yourusername" target="_blank" class="nav-icon" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.26.82-.58 0-.287-.01-1.05-.015-2.06-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.082-.73.082-.73 1.205.085 1.838 1.237 1.838 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+            </a>
+        </div>
+    </nav>
+
+    <div class="page-container project-detail">
+        <h1>Robotic Rube Goldberg Machine</h1>
+
+        <div class="project-media">
+            <img src="assets/rube-goldberg-detail.jpg" alt="Rube Goldberg Machine" onerror="this.src='https://placehold.co/800x400/2c3e50/white?text=Robotic+Rube+Goldberg+Machine'">
+        </div>
+
+        <div class="project-description">
+
+            <h3 style="margin: 1rem 0 0.5rem;">The Challenge</h3>
+            <p>As part of the University of Pittsburgh's Foundations of Engineering Design course, our team was tasked with designing and building a multi-stage Rube Goldberg machine — a deliberately complex chain-reaction device engineered to complete a simple task through a sequence of interconnected steps. The twist: at least one stage had to be robotic, incorporating a programmed microcontroller that responded to a real-world sensor input.</p>
+
+            <p style="margin-top: 0.75rem;">The challenge was not just mechanical. It required integrating embedded software with physical hardware, ensuring reliable sensor thresholds, and designing timing sequences precise enough to trigger downstream stages without failure. Every stage had to work — every time.</p>
+
+            <div class="note-callout">
+                <strong>Design Constraint:</strong> The robotic stage had to use analog sensor input to trigger an output in real time, with no manual intervention once the sequence began.
+            </div>
+
+            <h3 style="margin: 1.5rem 0 0.5rem;">Machine Sequence</h3>
+            <p>Our machine completed its task across five sequential stages. The robotic stage — Stage 3 — was the centerpiece of the design:</p>
+
+            <div class="stage-diagram">
+                <div class="stage-box">Stage 1<br><small>Mechanical trigger</small></div>
+                <div class="stage-arrow">→</div>
+                <div class="stage-box">Stage 2<br><small>Kinetic chain</small></div>
+                <div class="stage-arrow">→</div>
+                <div class="stage-box" style="border-color: #e74c3c; background: #fdf2f2;">Stage 3<br><small>Arduino sensor</small></div>
+                <div class="stage-arrow">→</div>
+                <div class="stage-box">Stage 4<br><small>Audio output</small></div>
+                <div class="stage-arrow">→</div>
+                <div class="stage-box">Stage 5<br><small>Final task</small></div>
+            </div>
+
+            <h3 style="margin: 1.5rem 0 0.5rem;">Technical Implementation</h3>
+            <p>The robotic stage used an Arduino Uno microcontroller programmed in C++ to read analog input from a photoresistor (light-dependent resistor). When the preceding mechanical stage passed through the sensor's field of view — blocking ambient light and dropping the analog reading below a defined threshold — the Arduino triggered a piezo buzzer to play the Star Wars Imperial March.</p>
+
+            <div class="code-block">
+<span class="comment">// Photoresistor pin and threshold</span>
+<span class="keyword">const</span> <span class="keyword">int</span> LDR_PIN = A0;
+<span class="keyword">const</span> <span class="keyword">int</span> THRESHOLD = <span class="value">400</span>;  <span class="comment">// calibrated for ambient light conditions</span>
+<span class="keyword">const</span> <span class="keyword">int</span> BUZZER_PIN = <span class="value">8</span>;
+
+<span class="comment">// Note frequencies (Hz)</span>
+<span class="keyword">int</span> melody[] = {<span class="value">440, 440, 440, 349, 523, 440, 349, 523, 440</span>};
+<span class="keyword">int</span> durations[] = {<span class="value">500, 500, 500, 350, 150, 500, 350, 150, 700</span>};
+
+<span class="keyword">void</span> loop() {
+  <span class="keyword">int</span> ldrValue = analogRead(LDR_PIN);
+
+  <span class="keyword">if</span> (ldrValue &lt; THRESHOLD) {
+    playMelody();  <span class="comment">// trigger on light interruption</span>
+  }
+}
+            </div>
+
+            <p>Calibrating the threshold was one of the most critical steps. The photoresistor's analog reading varied depending on room lighting conditions, so the threshold was tuned during testing to reliably distinguish between ambient light and the shadow cast by the incoming mechanical element — without false triggers from normal lighting fluctuations.</p>
+
+            <h3 style="margin: 1.5rem 0 0.5rem;">Hardware Specifications</h3>
+            <div class="spec-grid">
+                <div class="spec-card">
+                    <div class="spec-label">Microcontroller</div>
+                    <div class="spec-value">Arduino Uno (ATmega328P)</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Sensor</div>
+                    <div class="spec-value">Photoresistor (LDR) — analog input</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Output Device</div>
+                    <div class="spec-value">Piezo buzzer — digital PWM</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Language</div>
+                    <div class="spec-value">C++ (Arduino IDE)</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Audio Output</div>
+                    <div class="spec-value">Star Wars Imperial March</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Trigger Type</div>
+                    <div class="spec-value">Analog threshold — light interruption</div>
+                </div>
+            </div>
+
+            <h3 style="margin: 1.5rem 0 0.5rem;">Engineering Lessons</h3>
+            <p>This project was my first experience integrating embedded software with a physical mechanical system — and it exposed a set of engineering challenges that purely software or purely mechanical projects don't present. The sensor had to be reliable enough that a brief shadow reliably triggered the melody without misfiring. The timing of the audio output had to be short enough that the downstream stage received its cue before the mechanical momentum dissipated.</p>
+
+            <p style="margin-top: 0.75rem;">It reinforced a core principle of systems engineering: the interface between subsystems is often where designs fail. Writing code that works in isolation is one problem; writing code that works as one node in a physical chain-reaction system is another.</p>
+
+            <h3 style="margin: 1.5rem 0 0.5rem;">Skills Demonstrated</h3>
+            <ul style="margin-left: 1.5rem;">
+                <li>Arduino microcontroller programming in C++</li>
+                <li>Analog sensor interfacing and threshold calibration</li>
+                <li>PWM-based audio output via piezo buzzer</li>
+                <li>Embedded systems integration within a multi-stage physical mechanism</li>
+                <li>Iterative hardware testing and real-time debugging</li>
+            </ul>
+        </div>
+
+        <a href="projects.html" class="back-link">← Back to Projects</a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

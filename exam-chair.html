@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ergonomic Exam Chair | Thomas Norpel</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .lifecycle-steps {
+            counter-reset: step;
+            margin: 1.5rem 0;
+        }
+
+        .lifecycle-step {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            background: white;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+        }
+
+        .lifecycle-step .step-number {
+            background: #2c3e50;
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .lifecycle-step .step-content .step-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.2rem;
+        }
+
+        .lifecycle-step .step-content p {
+            color: #555;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .spec-card {
+            background: white;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+        }
+
+        .spec-card .spec-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #888;
+            margin-bottom: 0.25rem;
+        }
+
+        .spec-card .spec-value {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+
+        .note-callout {
+            background: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .image-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .image-row img {
+            width: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        @media (max-width: 600px) {
+            .spec-grid { grid-template-columns: 1fr; }
+            .image-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">Thomas Norpel</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Me</a>
+            <a href="projects.html">Projects</a>
+            <a href="resume.html">Resume</a>
+            <a href="https://linkedin.com/in/thomas-norpel" target="_blank" class="nav-icon" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451c.979 0 1.771-.773 1.771-1.729V1.729C24 .774 23.204 0 22.225 0z"/>
+                </svg>
+            </a>
+            <a href="https://github.com/yourusername" target="_blank" class="nav-icon" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.26.82-.58 0-.287-.01-1.05-.015-2.06-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.082-.73.082-.73 1.205.085 1.838 1.237 1.838 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+            </a>
+        </div>
+    </nav>
+
+    <div class="page-container project-detail">
+        <h1>Ergonomic Exam Chair</h1>
+
+        <div class="project-media">
+            <img src="assets/exam-chair-detail.jpg" alt="Ergonomic Exam Chair" onerror="this.src='https://placehold.co/800x400/2c3e50/white?text=Ergonomic+Exam+Chair'">
+        </div>
+
+        <div class="project-description">
+
+            <h3 style="margin: 1rem 0 0.5rem;">Project Overview</h3>
+            <p>As part of the University of Pittsburgh's Foundations of Engineering Design course, our team was tasked with designing and fabricating a functional exam chair from raw materials. The project was structured to mirror the professional engineering design lifecycle — moving from a written problem statement through requirements definition, concept generation, CAD modeling, physical fabrication, and final load testing. The deliverable was not a prototype or a sketch: it was a finished, load-bearing product that had to meet defined structural and ergonomic specifications.</p>
+
+            <div class="note-callout">
+                <strong>Project Requirement:</strong> The chair had to support a minimum static load of 250 lbs, fit within defined dimensional constraints for seat height and back angle, and be fabricated entirely by the student team using hand and power tools.
+            </div>
+
+            <h3 style="margin: 1.5rem 0 0.5rem;">Design Process</h3>
+            <p>We followed a structured engineering design lifecycle from start to finish:</p>
+
+            <div class="lifecycle-steps">
+                <div class="lifecycle-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">Requirements Definition</div>
+                        <p>Translated the project brief into measurable design requirements: load capacity, seat dimensions, back angle range, material constraints, and fabrication timeline.</p>
+                    </div>
+                </div>
+                <div class="lifecycle-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">Concept Generation & Selection</div>
+                        <p>Generated three distinct chair concepts using sketching and functional decomposition. Evaluated concepts against requirements using a weighted decision matrix, selecting the design that best balanced structural performance, material efficiency, and fabrication feasibility.</p>
+                    </div>
+                </div>
+                <div class="lifecycle-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">CAD Modeling</div>
+                        <p>Produced detailed CAD drawings of the selected design, specifying all joint types, member dimensions, and assembly sequences. The model guided material purchasing and served as the fabrication reference throughout construction.</p>
+                    </div>
+                </div>
+                <div class="lifecycle-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-title">Fabrication</div>
+                        <p>Built the chair using dimensional lumber, applying wood joinery techniques and mechanical fasteners to assemble the frame. Joint construction was the most critical phase — failures in chair structures almost always originate at connection points, so each joint was fitted, squared, and fastened with care.</p>
+                    </div>
+                </div>
+                <div class="lifecycle-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <div class="step-title">Testing & Validation</div>
+                        <p>Performed static load testing to verify the chair met the 250 lb structural requirement. Documented deformation, joint behavior, and any signs of stress under load, then compared results against the original design specifications.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-row">
+                <img src="assets/exam-chair-cad.jpg" alt="CAD model of exam chair" onerror="this.src='https://placehold.co/400x280/3498db/white?text=CAD+Model'">
+                <img src="assets/exam-chair-fabrication.jpg" alt="Chair fabrication process" onerror="this.src='https://placehold.co/400x280/2c3e50/white?text=Fabrication'">
+            </div>
+
+            <h3 style="margin: 1.5rem 0 0.5rem;">Specifications</h3>
+            <div class="spec-grid">
+                <div class="spec-card">
+                    <div class="spec-label">Primary Material</div>
+                    <div class="spec-value">Dimensional lumber (pine)</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Load Capacity</div>
+                    <div class="spec-value">250 lbs (static, verified)</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Joinery</div>
+                    <div class="spec-value">Mechanical fasteners + wood joints</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Design Tool</div>
+                    <div class="spec-value">CAD (dimensioned drawings)</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Course</div>
+                    <div class="spec-value">Foundations of Engineering Design</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-label">Team Size</div>
+                    <div class="spec-value">Small group project</div>
+                </div>
+            </div>
+
+            <h3 style="margin: 1.5rem 0 0.5rem;">What I Learned</h3>
+            <p>This project made the engineering design lifecycle concrete in a way that coursework alone cannot. Writing requirements is easy when they stay on paper — the challenge is holding to them when fabrication reveals that a joint you designed in CAD doesn't fit the way you expected, or that a member dimension you specified is unavailable in standard lumber sizing.</p>
+
+            <p style="margin-top: 0.75rem;">Working through those gaps between design intent and physical reality is where real engineering judgment develops. The decision matrix we used for concept selection also introduced me to a structured approach to trade-off analysis that I have since applied in other projects — particularly in the Accessible Ride-On Vehicle, where material, weight, and usability requirements had to be balanced against each other under similar constraints.</p>
+
+            <h3 style="margin: 1.5rem 0 0.5rem;">Skills Demonstrated</h3>
+            <ul style="margin-left: 1.5rem;">
+                <li>Full engineering design lifecycle from requirements through validation</li>
+                <li>CAD modeling and technical drawing production</li>
+                <li>Structural design and load analysis for wood construction</li>
+                <li>Fabrication using hand and power woodworking tools</li>
+                <li>Weighted decision matrix for engineering trade-off analysis</li>
+                <li>Static load testing and design validation</li>
+            </ul>
+        </div>
+
+        <a href="projects.html" class="back-link">← Back to Projects</a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
