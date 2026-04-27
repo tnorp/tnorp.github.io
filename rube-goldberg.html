@@ -131,16 +131,16 @@
         <div class="project-description">
 
             <h3 style="margin: 1rem 0 0.5rem;">The Challenge</h3>
-            <p>As part of the University of Pittsburgh's Foundations of Engineering Design course, our team was tasked with designing and building a multi-stage Rube Goldberg machine — a deliberately complex chain-reaction device engineered to complete a simple task through a sequence of interconnected steps. The twist: at least one stage had to be robotic, incorporating a programmed microcontroller that responded to a real-world sensor input.</p>
+            <p>As part of the University of Pittsburgh's Foundations of Engineering Design course, our team was tasked with designing and building a multi-stage Rube Goldberg machine, a deliberately complex chain-reaction device engineered to complete a simple task through a sequence of interconnected steps. The twist: at least one stage had to be robotic, incorporating a programmed microcontroller that responded to a real-world sensor input.</p>
 
-            <p style="margin-top: 0.75rem;">The challenge was not just mechanical. It required integrating embedded software with physical hardware, ensuring reliable sensor thresholds, and designing timing sequences precise enough to trigger downstream stages without failure. Every stage had to work — every time.</p>
+            <p style="margin-top: 0.75rem;">The challenge was not just mechanical. It required integrating embedded software with physical hardware, ensuring reliable sensor thresholds, and designing timing sequences precise enough to trigger downstream stages without failure.</p>
 
             <div class="note-callout">
                 <strong>Design Constraint:</strong> The robotic stage had to use analog sensor input to trigger an output in real time, with no manual intervention once the sequence began.
             </div>
 
             <h3 style="margin: 1.5rem 0 0.5rem;">Machine Sequence</h3>
-            <p>Our machine completed its task across five sequential stages. The robotic stage — Stage 3 — was the centerpiece of the design:</p>
+            <p>Our machine completed its task across five sequential stages. The robotic stage, Stage 3, was the centerpiece of the design:</p>
 
             <div class="stage-diagram">
                 <div class="stage-box">Stage 1<br><small>Mechanical trigger</small></div>
@@ -155,7 +155,7 @@
             </div>
 
             <h3 style="margin: 1.5rem 0 0.5rem;">Technical Implementation</h3>
-            <p>The robotic stage used an Arduino Uno microcontroller programmed in C++ to read analog input from a photoresistor (light-dependent resistor). When the preceding mechanical stage passed through the sensor's field of view — blocking ambient light and dropping the analog reading below a defined threshold — the Arduino triggered a piezo buzzer to play the Star Wars Imperial March.</p>
+            <p>The robotic stage used an Arduino Uno microcontroller programmed in C++ to read analog input from a photoresistor. When the preceding mechanical stage lit a flame in the sensor's field of view, the produced light increased the analog reading above our threshold, and the Arduino triggered a piezo buzzer to play the Star Wars Imperial March.</p>
 
             <div class="code-block">
 <span class="comment">// Photoresistor pin and threshold</span>
@@ -207,7 +207,7 @@
             </div>
 
             <h3 style="margin: 1.5rem 0 0.5rem;">Engineering Lessons</h3>
-            <p>This project was my first experience integrating embedded software with a physical mechanical system — and it exposed a set of engineering challenges that purely software or purely mechanical projects don't present. The sensor had to be reliable enough that a brief shadow reliably triggered the melody without misfiring. The timing of the audio output had to be short enough that the downstream stage received its cue before the mechanical momentum dissipated.</p>
+            <p>This project was my first experience integrating embedded software with a physical mechanical system, and it exposed a set of engineering challenges that purely software or purely mechanical projects don't present. The sensor had to be reliable enough that a brief shadow reliably triggered the melody without misfiring. The timing of the audio output had to be short enough that the downstream stage received its cue before the mechanical momentum dissipated.</p>
 
             <p style="margin-top: 0.75rem;">It reinforced a core principle of systems engineering: the interface between subsystems is often where designs fail. Writing code that works in isolation is one problem; writing code that works as one node in a physical chain-reaction system is another.</p>
 
