@@ -158,25 +158,74 @@
             <p>The robotic stage used an Arduino Uno microcontroller programmed in C++ to read analog input from a photoresistor. When the preceding mechanical stage lit a flame in the sensor's field of view, the produced light increased the analog reading above our threshold, and the Arduino triggered a piezo buzzer to play the Star Wars Imperial March.</p>
 
             <div class="code-block">
-<span class="comment">// Photoresistor pin and threshold</span>
-<span class="keyword">const</span> <span class="keyword">int</span> LDR_PIN = A0;
-<span class="keyword">const</span> <span class="keyword">int</span> THRESHOLD = <span class="value">400</span>;  <span class="comment">// calibrated for ambient light conditions</span>
-<span class="keyword">const</span> <span class="keyword">int</span> BUZZER_PIN = <span class="value">8</span>;
+<span class="comment">// Pin definitions</span>
+<span class="keyword">const</span> <span class="keyword">int</span> lightSensorPin = A0;
+<span class="keyword">const</span> <span class="keyword">int</span> buzzerPin = <span class="value">8</span>;
+<span class="keyword">int</span> directionPin = <span class="value">12</span>;
+<span class="keyword">int</span> pwmPin = <span class="value">3</span>;
+<span class="keyword">int</span> brakePin = <span class="value">9</span>;
+<span class="keyword">bool</span> directionState;
+<span class="keyword">bool</span> songPlayed = <span class="keyword">false</span>;
 
-<span class="comment">// Note frequencies (Hz)</span>
-<span class="keyword">int</span> melody[] = {<span class="value">440, 440, 440, 349, 523, 440, 349, 523, 440</span>};
-<span class="keyword">int</span> durations[] = {<span class="value">500, 500, 500, 350, 150, 500, 350, 150, 700</span>};
+<span class="comment">// Light threshold (adjust this!)</span>
+<span class="keyword">const</span> <span class="keyword">int</span> lightThreshold = <span class="value">19</span>;
+
+<span class="keyword">void</span> setup() {
+  pinMode(buzzerPin, OUTPUT);
+  pinMode(directionPin, OUTPUT);
+  pinMode(pwmPin, OUTPUT);
+  pinMode(brakePin, OUTPUT);
+  Serial.begin(<span class="value">9600</span>);
+}
 
 <span class="keyword">void</span> loop() {
-  <span class="keyword">int</span> ldrValue = analogRead(LDR_PIN);
+  <span class="keyword">int</span> lightValue = analogRead(lightSensorPin);
+  Serial.println(lightValue);
+  directionState = !directionState;
 
-  <span class="keyword">if</span> (ldrValue &lt; THRESHOLD) {
-    playMelody();  <span class="comment">// trigger on light interruption</span>
+  <span class="keyword">if</span> (directionState == <span class="keyword">false</span>) {
+    digitalWrite(directionPin, LOW);
+  } <span class="keyword">else</span> {
+    digitalWrite(directionPin, HIGH);
   }
-}
-            </div>
 
-            <p>Calibrating the threshold was one of the most critical steps. The photoresistor's analog reading varied depending on room lighting conditions, so the threshold was tuned during testing to reliably distinguish between ambient light and the shadow cast by the incoming mechanical element — without false triggers from normal lighting fluctuations.</p>
+  <span class="keyword">if</span> (lightValue > lightThreshold) {
+    <span class="keyword">if</span> (!songPlayed) {
+      playSequence();
+      songPlayed = <span class="keyword">true</span>;
+    }
+    digitalWrite(brakePin, LOW);
+    analogWrite(pwmPin, <span class="value">255</span>);
+  } <span class="keyword">else</span> {
+    digitalWrite(brakePin, HIGH);
+    analogWrite(pwmPin, <span class="value">0</span>);
+    songPlayed = <span class="keyword">false</span>;
+  }
+  delay(<span class="value">50</span>);
+}
+
+<span class="keyword">void</span> playSequence() {
+  beep(<span class="value">440</span>, <span class="value">500</span>); beep(<span class="value">440</span>, <span class="value">500</span>); beep(<span class="value">440</span>, <span class="value">500</span>);
+  beep(<span class="value">349</span>, <span class="value">350</span>); beep(<span class="value">523</span>, <span class="value">150</span>);
+  beep(<span class="value">440</span>, <span class="value">500</span>); beep(<span class="value">349</span>, <span class="value">350</span>); beep(<span class="value">523</span>, <span class="value">150</span>);
+  beep(<span class="value">440</span>, <span class="value">650</span>);
+  delay(<span class="value">500</span>);
+  beep(<span class="value">659</span>, <span class="value">500</span>); beep(<span class="value">659</span>, <span class="value">500</span>); beep(<span class="value">659</span>, <span class="value">500</span>);
+  beep(<span class="value">698</span>, <span class="value">350</span>); beep(<span class="value">523</span>, <span class="value">150</span>);
+  beep(<span class="value">415</span>, <span class="value">500</span>); beep(<span class="value">349</span>, <span class="value">350</span>); beep(<span class="value">523</span>, <span class="value">150</span>);
+  beep(<span class="value">440</span>, <span class="value">650</span>);
+  delay(<span class="value">500</span>);
+}
+
+<span class="keyword">void</span> beep(<span class="keyword">int</span> note, <span class="keyword">int</span> duration) {
+  tone(buzzerPin, note, duration);
+  delay(duration);
+  noTone(buzzerPin);
+  delay(<span class="value">50</span>);
+}
+</div>
+
+            <p>Calibrating the threshold was one of the most critical steps. The photoresistor's analog reading varied depending on room lighting conditions, so the threshold was tuned during testing to reliably distinguish between ambient light and the flame lit by the incoming mechanical element without false triggers from normal lighting fluctuations.</p>
 
             <h3 style="margin: 1.5rem 0 0.5rem;">Hardware Specifications</h3>
             <div class="spec-grid">
